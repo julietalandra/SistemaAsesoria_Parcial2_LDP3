@@ -1,0 +1,162 @@
+:root {
+    --azul: #1b2a49;
+    --dorado: #b8903a;
+    --gris: #f4f5f7;
+    --texto: #222;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--texto);
+    background: var(--gris);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ---------- navbar ---------- */
+.navbar {
+    background: var(--azul);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem 1.25rem;
+}
+
+    .navbar a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+    .marca img {
+        height: 40px;
+        width: auto;
+    }
+
+.menu {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+    .menu a:hover {
+        color: var(--dorado);
+    }
+
+/* ---------- contenido ---------- */
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+}
+
+.banner {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* ---------- formularios ---------- */
+.formulario {
+    background: #fff;
+    padding: 1.25rem;
+    border-radius: 8px;
+    max-width: 520px;
+}
+
+    .formulario p {
+        margin: 0 0 1rem;
+    }
+
+    .formulario label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: .25rem;
+    }
+
+    .formulario input {
+        width: 100%;
+        padding: .5rem;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+    }
+
+.input-validation-error {
+    border-color: #b71c1c !important;
+}
+
+button, .boton {
+    background: var(--dorado);
+    color: #fff;
+    border: 0;
+    padding: .6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.error {
+    color: #b71c1c;
+    font-size: .9rem;
+}
+
+.ok {
+    color: #1b5e20;
+    font-weight: 600;
+}
+
+.lista-documentos li {
+    margin-bottom: .4rem;
+}
+
+/* ---------- pie ---------- */
+footer {
+    background: var(--azul);
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+    footer p {
+        margin: 0;
+    }
+
+/* ---------- responsivo ---------- */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    .menu {
+        justify-content: center;
+    }
+
+    main {
+        padding: 1rem .75rem;
+    }
+}

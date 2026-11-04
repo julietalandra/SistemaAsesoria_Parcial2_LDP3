@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    // La sesión se lee acá para mostrar el usuario en el navbar
+    string? usuarioActivo = Context.Session.GetString("usuario");
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Asesoría Legal Global</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- el viejo ContentPlaceHolder id="head" -->
+    @RenderSection("Head", required: false)
+</head>
+<body>
+    <header>
+        <!-- la cabecera común a todo el sitio -->
+        <nav class="navbar">
+            <a class="marca" asp-page="/Index">
+                <img src="~/imagenes/logo.png" alt="Logo de Asesoría Legal Global" />
+                <span>Asesoría Legal Global</span>
+            </a>
+            <ul class="menu">
+                <li><a asp-page="/Index">Inicio</a></li>
+                <li><a asp-page="/Registro">Registro</a></li>
+                <li><a asp-page="/Documentos">Documentos</a></li>
+                @if (usuarioActivo is not null)
+                {
+                    <li><a asp-page="/Salir">Salir (@usuarioActivo)</a></li>
+                }
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- el viejo ContentPlaceHolder1: acá entra el contenido de cada página -->
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year Asesoría Legal Global - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- jQuery tiene que cargarse ANTES de la sección Scripts (la validación del cliente lo necesita) -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

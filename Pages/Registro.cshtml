@@ -1,0 +1,52 @@
+﻿@page
+@model RegistroModel
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<h1>Registro de clientes</h1>
+
+<form method="post" class="formulario">
+    <p>
+        <label asp-for="Nombre">Nombre</label>
+        <input asp-for="Nombre" />
+        <span asp-validation-for="Nombre" class="error"></span>
+    </p>
+    <p>
+        <label asp-for="Apellido">Apellido</label>
+        <input asp-for="Apellido" />
+        <span asp-validation-for="Apellido" class="error"></span>
+    </p>
+    <p>
+        <label asp-for="Correo">Correo electrónico</label>
+        <input asp-for="Correo" />
+        <span asp-validation-for="Correo" class="error"></span>
+    </p>
+    <p>
+        <label asp-for="NombreUsuario">Nombre de usuario</label>
+        <input asp-for="NombreUsuario" />
+        <span asp-validation-for="NombreUsuario" class="error"></span>
+    </p>
+    <p>
+        <label asp-for="Edad">Edad</label>
+        <input asp-for="Edad" />
+        <span asp-validation-for="Edad" class="error"></span>
+    </p>
+    <p>
+        <label asp-for="Clave">Contraseña</label>
+        <input asp-for="Clave" />
+        <span asp-validation-for="Clave" class="error"></span>
+    </p>
+    <p>
+        <label asp-for="ConfirmarClave">Confirmar contraseña</label>
+        <input asp-for="ConfirmarClave" />
+        <span asp-validation-for="ConfirmarClave" class="error"></span>
+    </p>
+    <p>
+        <button type="submit">Registrar</button>
+    </p>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
