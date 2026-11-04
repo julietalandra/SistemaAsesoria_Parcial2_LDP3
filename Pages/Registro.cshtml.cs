@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using AsesoriaLegalGlobal_Parcial2.Servicios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,6 +8,14 @@ namespace AsesoriaLegalGlobal_Parcial2.Pages;
 
 public class RegistroModel : PageModel
 {
+    // La variable de aplicación (singleton), inyectada por constructor como en la guía 09
+    private readonly RegistroUsuarios _registro;
+
+    public RegistroModel(RegistroUsuarios registro)
+    {
+        _registro = registro;
+    }
+
     // RegularExpressionValidator del apunte: formato del correo
     [Required(ErrorMessage = "Debe ingresar el correo electrónico")]
     [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$",
@@ -62,6 +71,15 @@ public class RegistroModel : PageModel
             return Page();
         }
 
+        // Se anota el usuario en la variable de aplicación para poder iniciar sesión después.
+        // Si ya existe alguien con ese nombre, no se registra (así no comparten carpeta).
+        bool registrado = _registro.Registrar(NombreUsuario!, Clave!);
+        if (!registrado)
+        {
+            ModelState.AddModelError(nameof(NombreUsuario), "Ese nombre de usuario ya está en uso");
+            return Page();
+        }
+
         // Variable de SESIÓN (vive en el servidor): el nombre de usuario
         HttpContext.Session.SetString("usuario", NombreUsuario!);
 
@@ -74,7 +92,7 @@ public class RegistroModel : PageModel
         };
         Response.Cookies.Append("clave", Clave!, opciones);
 
-        // "Al iniciar sesión, el usuario es dirigido a su espacio de gestión de archivos"
+        // Al registrarse queda con la sesión iniciada y va a su espacio de documentos
         return RedirectToPage("/Documentos");
     }
 }

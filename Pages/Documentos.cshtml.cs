@@ -36,10 +36,11 @@ public class DocumentosModel : PageModel
     {
         Usuario = HttpContext.Session.GetString("usuario");
 
-        // Sin sesión activa no se entra: se vuelve al registro
+        // Igual que la Pagina2 de la guía 09: sin sesión se vuelve al ingreso (acá, al login)
         if (Usuario is null)
         {
-            return RedirectToPage("/Registro");
+            TempData["Aviso"] = "Necesitás iniciar sesión para acceder a tus documentos";
+            return RedirectToPage("/Login");
         }
 
         CargarDocumentos();
@@ -52,7 +53,7 @@ public class DocumentosModel : PageModel
         Usuario = HttpContext.Session.GetString("usuario");
         if (Usuario is null)
         {
-            return RedirectToPage("/Registro");
+            return RedirectToPage("/Login");
         }
 
         // Validaciones del archivo
@@ -107,6 +108,29 @@ public class DocumentosModel : PageModel
         }
 
         Mensaje = "Documento subido correctamente";
+        CargarDocumentos();
+        return Page();
+    }
+
+    // Eliminar un documento del espacio del usuario (la "administración" de archivos)
+    public IActionResult OnPostEliminar(string nombre)
+    {
+        Usuario = HttpContext.Session.GetString("usuario");
+        if (Usuario is null)
+        {
+            return RedirectToPage("/Login");
+        }
+
+        // Path.GetFileName: el nombre llega del navegador, nunca se confía en él
+        string ruta = Path.Combine(_env.WebRootPath, "documentos", Usuario, Path.GetFileName(nombre));
+
+        // El File.Exists / File.Delete del apunte
+        if (System.IO.File.Exists(ruta))
+        {
+            System.IO.File.Delete(ruta);
+            Mensaje = "Documento eliminado";
+        }
+
         CargarDocumentos();
         return Page();
     }

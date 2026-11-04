@@ -4,8 +4,8 @@
     ViewData["Title"] = "Mis documentos";
 }
 
-<h1>Gestión de documentos legales</h1>
-<p>Espacio de: <strong>@Model.Usuario</strong></p>
+<h1 class="centrado">Gestión de documentos legales</h1>
+<p class="centrado">Espacio de: <strong>@Model.Usuario</strong></p>
 
 <!-- enctype="multipart/form-data" es obligatorio: sin esto el archivo no viaja -->
 <form method="post" enctype="multipart/form-data" class="formulario">
@@ -21,7 +21,7 @@
 
 @if (Model.Mensaje is not null)
 {
-    <p class="ok">@Model.Mensaje</p>
+    <p class="ok centrado">@Model.Mensaje</p>
 }
 
 <h2>Documentos cargados</h2>
@@ -37,6 +37,13 @@ else
         {
             <li>
                 <a href="/documentos/@Model.Usuario/@Uri.EscapeDataString(nombre)" target="_blank">@nombre</a>
+                <form method="post" asp-page-handler="Eliminar" class="en-linea">
+                    <input type="hidden" name="nombre" value="@nombre" />
+                    <button type="submit" class="boton-chico"
+                            onclick="return confirm('¿Eliminar este documento?');">
+                        Eliminar
+                    </button>
+                </form>
             </li>
         }
     </ul>

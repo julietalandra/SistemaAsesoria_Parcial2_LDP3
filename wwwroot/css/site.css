@@ -79,12 +79,19 @@ main {
     border-radius: 8px;
 }
 
+.centrado {
+    text-align: center;
+}
+
 /* ---------- formularios ---------- */
 .formulario {
     background: #fff;
     padding: 1.25rem;
     border-radius: 8px;
+    width: 100%;
     max-width: 520px;
+    margin: 0 auto; /* ESTO centra el formulario */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
 }
 
     .formulario p {
@@ -129,8 +136,27 @@ button, .boton {
     font-weight: 600;
 }
 
+.aviso {
+    background: #fff4d6;
+    border: 1px solid var(--dorado);
+    padding: .6rem 1rem;
+    border-radius: 4px;
+}
+
+/* ---------- lista de documentos ---------- */
 .lista-documentos li {
     margin-bottom: .4rem;
+}
+
+.en-linea {
+    display: inline;
+    margin-left: .5rem;
+}
+
+.boton-chico {
+    padding: .2rem .6rem;
+    font-size: .85rem;
+    background: #b71c1c;
 }
 
 /* ---------- pie ---------- */

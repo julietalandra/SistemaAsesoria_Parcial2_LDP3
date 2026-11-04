@@ -23,7 +23,11 @@
             </a>
             <ul class="menu">
                 <li><a asp-page="/Index">Inicio</a></li>
-                <li><a asp-page="/Registro">Registro</a></li>
+                @if (usuarioActivo is null)
+                {
+                    <li><a asp-page="/Registro">Registro</a></li>
+                    <li><a asp-page="/Login">Iniciar sesión</a></li>
+                }
                 <li><a asp-page="/Documentos">Documentos</a></li>
                 @if (usuarioActivo is not null)
                 {
