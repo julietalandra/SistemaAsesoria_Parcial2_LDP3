@@ -1,8 +1,10 @@
 ﻿# Asesoría Legal Global — Registro de clientes y gestión de documentos legales
 
-Parcial 2 (TP4) de **Laboratorio de Programación 3** — Tecnicatura Superior en Desarrollo de Software, Instituto Superior Santo Domingo.
+Parcial 2 de **Laboratorio de Programación 3** 
+Tecnicatura Superior en Desarrollo de Software, Instituto Superior Santo Domingo.
 
-**Autora:** [Nombre y apellido] ([@julietalandra](https://github.com/julietalandra))
+**Autora:** Julieta Landra ([@julietalandra](https://github.com/julietalandra))
+**Profesor:** Christian Mansilla
 
 ## Descripción
 
@@ -89,7 +91,3 @@ Abrir en el navegador la dirección que indique la consola (por ejemplo `https:/
 - Los usuarios registrados y las sesiones están en memoria: **se pierden al reiniciar la aplicación** y hay que registrarse de nuevo.
 - Guardar la contraseña en una cookie es un requisito de la consigna; en un sistema real no se haría (se almacenaría un hash en una base de datos y se usaría ASP.NET Core Identity).
 - Los archivos están dentro de `wwwroot`, por lo que son accesibles por URL directa. En producción se guardarían fuera de `wwwroot` y se descargarían mediante un handler que verifique la sesión.
-
-## Capturas
-
-<!-- Agregar capturas: inicio, registro con errores, login, documentos -->

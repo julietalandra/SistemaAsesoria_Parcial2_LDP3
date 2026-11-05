@@ -46,12 +46,10 @@ public class LoginModel : PageModel
             return Page();
         }
 
-        // Se consulta la variable de aplicación: devuelve el usuario o null
         string? usuario = _registro.Validar(NombreUsuario!, Clave!);
 
         if (usuario is null)
         {
-            // Mismo mensaje si falla el usuario o la clave: no se revela cuál fue
             ModelState.AddModelError(string.Empty, "Usuario o contraseña incorrectos");
             return Page();
         }
@@ -59,7 +57,6 @@ public class LoginModel : PageModel
         // Inicio de sesión: el usuario queda en la variable de sesión
         HttpContext.Session.SetString("usuario", usuario);
 
-        // "Al iniciar sesión, el usuario será dirigido a su propio espacio de gestión de archivos"
         return RedirectToPage("/Documentos");
     }
 }

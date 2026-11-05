@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Asesoría Legal Global</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <!-- el viejo ContentPlaceHolder id="head" -->
     @RenderSection("Head", required: false)
 </head>
 <body>
@@ -38,7 +37,6 @@
     </header>
 
     <main>
-        <!-- el viejo ContentPlaceHolder1: acá entra el contenido de cada página -->
         @RenderBody()
     </main>
 
@@ -46,7 +44,6 @@
         <p>&copy; @DateTime.Now.Year Asesoría Legal Global - Todos los derechos reservados</p>
     </footer>
 
-    <!-- jQuery tiene que cargarse ANTES de la sección Scripts (la validación del cliente lo necesita) -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

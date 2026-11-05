@@ -7,7 +7,6 @@ namespace AsesoriaLegalGlobal_Parcial2.Pages;
 
 public class DocumentosModel : PageModel
 {
-    // El Server del apunte: la clase que sabe dónde vive el sitio en el disco
     private readonly IWebHostEnvironment _env;
 
     private const long LimiteBytes = 5242880; // 5 MB
@@ -20,23 +19,19 @@ public class DocumentosModel : PageModel
         _env = env;
     }
 
-    // El control FileUpload del apunte, ahora como propiedad del formulario
     [BindProperty]
     public IFormFile? Archivo { get; set; }
 
-    // Usuario tomado de la SESIÓN (no del formulario)
     public string? Usuario { get; set; }
 
     public string? Mensaje { get; set; }
 
-    // Los documentos que ya subió este usuario
     public List<string> Documentos { get; set; } = new();
 
     public IActionResult OnGet()
     {
         Usuario = HttpContext.Session.GetString("usuario");
 
-        // Igual que la Pagina2 de la guía 09: sin sesión se vuelve al ingreso (acá, al login)
         if (Usuario is null)
         {
             TempData["Aviso"] = "Necesitás iniciar sesión para acceder a tus documentos";
@@ -49,14 +44,12 @@ public class DocumentosModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        // La sesión se controla también al subir, no solo al entrar a la página
         Usuario = HttpContext.Session.GetString("usuario");
         if (Usuario is null)
         {
             return RedirectToPage("/Login");
         }
 
-        // Validaciones del archivo
         if (Archivo is null || Archivo.Length <= 0)
         {
             ModelState.AddModelError(nameof(Archivo), "Debe elegir un documento");
@@ -84,16 +77,12 @@ public class DocumentosModel : PageModel
             return Page();
         }
 
-        // El Server.MapPath(".") del apunte es _env.WebRootPath.
-        // Cada usuario tiene su propia carpeta: wwwroot/documentos/<usuario>
         string carpeta = Path.Combine(_env.WebRootPath, "documentos", Usuario);
-        Directory.CreateDirectory(carpeta);   // si ya existe, no hace nada
+        Directory.CreateDirectory(carpeta);   
 
-        // Path.GetFileName: descarta cualquier ruta que venga adentro del nombre
         string nombreArchivo = Path.GetFileName(Archivo!.FileName);
         string ruta = Path.Combine(carpeta, nombreArchivo);
 
-        // El File.Exists del apunte: no pisar un archivo existente
         if (System.IO.File.Exists(ruta))
         {
             ModelState.AddModelError(nameof(Archivo), "Ya existe un documento con ese nombre");
@@ -101,7 +90,6 @@ public class DocumentosModel : PageModel
             return Page();
         }
 
-        // El SaveAs del apunte: copiar el contenido al disco
         using (FileStream destino = new FileStream(ruta, FileMode.Create))
         {
             await Archivo.CopyToAsync(destino);
@@ -112,7 +100,6 @@ public class DocumentosModel : PageModel
         return Page();
     }
 
-    // Eliminar un documento del espacio del usuario (la "administración" de archivos)
     public IActionResult OnPostEliminar(string nombre)
     {
         Usuario = HttpContext.Session.GetString("usuario");
@@ -121,10 +108,8 @@ public class DocumentosModel : PageModel
             return RedirectToPage("/Login");
         }
 
-        // Path.GetFileName: el nombre llega del navegador, nunca se confía en él
         string ruta = Path.Combine(_env.WebRootPath, "documentos", Usuario, Path.GetFileName(nombre));
 
-        // El File.Exists / File.Delete del apunte
         if (System.IO.File.Exists(ruta))
         {
             System.IO.File.Delete(ruta);
